@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Theodore Blu — All Things Soccer</title>
+  <meta name="description" content="Theodore Blu (Ivy League alum, world traveler, father, and former college professor) explores tactics, leagues, culture, and the joy of football." />
+  <style>
+    :root{
+      --blue-950:#0b2545;/* deep navy */
+      --blue-900:#0f3b66;
+      --blue-850:#134676;
+      --blue-800:#164a7e;
+      --blue-700:#1c5a98;
+      --blue-600:#2a6fbb;
+      --blue-500:#3b82f6;/* accent */
+      --blue-300:#93c5fd;
+      --blue-100:#dbeafe;
+      --slate-50:#f8fafc;
+      --slate-100:#f1f5f9;
+      --slate-200:#e2e8f0;
+      --slate-400:#94a3b8;
+      --slate-600:#475569;
+      --white:#ffffff;
+      --shadow: 0 14px 40px rgba(3,7,18,.10), 0 2px 10px rgba(3,7,18,.06);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--slate-600);
+      background: linear-gradient(180deg, var(--slate-50), #eef6ff 35%, #f6faff);
+    }
+    a{color:var(--blue-700);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(10px);
+      background: linear-gradient(90deg, rgba(11,37,69,.92), rgba(28,90,152,.92));
+      color:var(--white);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+    .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.2px}
+    .brand svg{width:30px;height:30px}
+    nav a{color:var(--white);opacity:.9;margin-left:18px;font-weight:700}
+    nav a:hover{opacity:1}
+
+    /* Hero */
+    .hero{
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(59,130,246,.25), transparent 70%),
+                  linear-gradient(180deg, var(--blue-950), var(--blue-900) 50%, var(--blue-800));
+      color:var(--white);
+      padding:76px 0 48px;
+    }
+    .hero-grid{display:grid;grid-template-columns: 1.15fr .85fr;gap:40px;align-items:center}
+    @media (max-width: 900px){.hero-grid{grid-template-columns:1fr}}
+    h1{margin:0 0 10px;font-size:clamp(30px,4vw,48px);line-height:1.1}
+    .tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);padding:8px 12px;border-radius:999px;font-weight:700}
+    .lead{margin:12px 0 0;font-size:clamp(16px,2.4vw,20px);opacity:.95;max-width:65ch}
+    .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{background:linear-gradient(90deg,var(--blue-700),var(--blue-500));color:white;border:none;padding:12px 16px;border-radius:12px;font-weight:800;letter-spacing:.3px;box-shadow:var(--shadow);cursor:pointer}
+    .btn.alt{background:transparent;border:1px solid rgba(255,255,255,.6)}
+
+    /* Cards & layout */
+    .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--slate-200)}
+    .muted{color:#365c8f}
+    .profile{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:18px}
+    @media (max-width:520px){.profile{grid-template-columns:1fr}}
+    .badge{display:inline-block;background:var(--blue-100);color:var(--blue-900);font-weight:800;padding:6px 10px;border-radius:999px;font-size:12px}
+
+    /* Sections */
+    section{padding:60px 0}
+    h2{font-size:clamp(22px,3.2vw,32px);margin:0 0 18px;color:var(--blue-900)}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    @media (max-width: 980px){.grid-3{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width: 680px){.grid-3,.grid-2{grid-template-columns:1fr}}
+    .post{padding:18px}
+    .post h3{margin:0 0 8px;font-size:19px;color:var(--blue-800)}
+    .post p{margin:0}
+    .pill{display:inline-block;background:#e4eefc;color:#123b70;padding:6px 10px;border-radius:999px;font-weight:800;font-size:12px}
+    .meta{font-size:12px;color:var(--slate-400);margin-top:6px}
+
+    .timeline{position:relative;padding-left:20px}
+    .timeline::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:#cfe0ff}
+    .t-item{position:relative;margin:0 0 16px 0;padding-left:14px}
+    .t-item::before{content:"";position:absolute;left:-2px;top:5px;width:10px;height:10px;background:var(--blue-600);border-radius:999px;box-shadow:0 0 0 3px #e9f2ff}
+
+    footer{background:linear-gradient(180deg, #e9f2ff, #dff0ff);border-top:1px solid #dbeafe;padding:28px 0;color:#32527a}
+    .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+    @media (max-width:800px){.foot-grid{grid-template-columns:1fr}}
+    .social a{margin-right:12px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <div class="brand" aria-label="Theodore Blu home">
+        <!-- Simple soccer ball icon -->
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <circle cx="32" cy="32" r="30" fill="#e6f0ff" stroke="#c7ddff" stroke-width="2"/>
+          <polygon points="32,16 40,24 36,36 28,36 24,24" fill="#0f3b66"/>
+          <path d="M12 28c5 4 10 6 20 6s15-2 20-6" fill="none" stroke="#0f3b66" stroke-width="2"/>
+          <path d="M16 42c4 3 9 4 16 4s12-1 16-4" fill="none" stroke="#0f3b66" stroke-width="2"/>
+        </svg>
+        <span>Theodore Blu • All Things Soccer</span>
+      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#analysis">Analysis</a>
+        <a href="#posts">Posts</a>
+        <a href="#media">Media</a>
+        <a href="#bio">Bio & Timeline</a>
+        <a href="#contact">Contact</a>
+        <a href="#subscribe">Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="tag" title="Soccer Enthusiast"><span>⚽</span> Soccer Enthusiast • Thoughtful Analysis</span>
+          <h1>Hi, I'm <strong>Theodore Blu</strong>.</h1>
+          <p class="lead">I write about tactics, leagues, and the culture of the beautiful game—making the complex feel simple without losing the nuance.</p>
+          <div class="cta">
+            <a class="btn" href="#analysis">Read Featured Analysis</a>
+            <a class="btn alt" href="#subscribe">Get New Posts by Email</a>
+          </div>
+        </div>
+        <aside class="card" aria-label="Profile">
+          <div class="profile">
+            <!-- Inline illustrated avatar: Generic African man, 60+, American-style blazer -->
+            <svg width="120" height="120" viewBox="0 0 160 160" role="img" aria-label="Profile picture: generic African man in a blazer, over 60">
+              <defs>
+                <clipPath id="avatarClip"><circle cx="80" cy="80" r="72"/></clipPath>
+                <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#dbeafe"/>
+                  <stop offset="100%" stop-color="#93c5fd"/>
+                </linearGradient>
+              </defs>
+              <g clip-path="url(#avatarClip)">
+                <!-- Background -->
+                <rect width="160" height="160" fill="url(#bgGrad)"/>
+                <!-- Shoulders / blazer -->
+                <path d="M0 160h160v-34c-18-16-40-26-80-26s-62 10-80 26v34z" fill="#133c6b"/>
+                <path d="M40 148c10-20 26-30 40-30s30 10 40 30" fill="#1f4f87"/>
+                <!-- Shirt -->
+                <path d="M65 140c6-7 9-10 15-10s9 3 15 10" fill="#e8eef8"/>
+                <!-- Neck -->
+                <ellipse cx="80" cy="92" rx="18" ry="14" fill="#6a4a2d"/>
+                <!-- Head -->
+                <ellipse cx="80" cy="70" rx="28" ry="32" fill="#744f2e"/>
+                <!-- Hair (graying) -->
+                <path d="M52 66c2-16 14-28 28-28s26 9 29 23c-3 3-7 4-12 2-4-7-11-10-17-10s-13 3-17 10c-5 3-8 3-11 3z" fill="#bfc6cf"/>
+                <path d="M52 60c5-13 17-22 28-22s20 6 26 16c-8 2-14-2-20-5-6-2-13-1-19 3-5 3-10 6-15 8z" fill="#2e2e2e" opacity=".45"/>
+                <!-- Eyebrows / lines for age -->
+                <path d="M66 73c4-2 8-2 12 0M83 73c4-2 8-2 12 0" stroke="#5a3f26" stroke-width="2" stroke-linecap="round"/>
+                <!-- Eyes -->
+                <circle cx="70" cy="80" r="3" fill="#1f2937"/>
+                <circle cx="90" cy="80" r="3" fill="#1f2937"/>
+                <!-- Smile -->
+                <path d="M70 92c4 4 16 4 20 0" stroke="#3b82f6" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <!-- Glasses (optional style) -->
+                <g opacity=".85">
+                  <rect x="60" y="74" width="20" height="12" rx="3" fill="none" stroke="#0f3b66" stroke-width="2"/>
+                  <rect x="80" y="74" width="20" height="12" rx="3" fill="none" stroke="#0f3b66" stroke-width="2"/>
+                  <line x1="80" y1="80" x2="80" y2="80" stroke="#0f3b66" stroke-width="2"/>
+                </g>
+              </g>
+            </svg>
+            <div>
+              <div class="badge">Profile</div>
+              <h3 style="margin:6px 0 6px;color:var(--blue-900)">Theodore Blu</h3>
+              <p style="margin:0" class="muted">Ivy League alum • World traveler • Father • Former college professor</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="wrap">
+        <h2>About This Site</h2>
+        <div class="card" style="padding:22px">
+          <p style="margin:0 0 10px">Welcome! I'm Theodore Blu—pronounced <em>Blue</em>. Here you'll find approachable analysis on pressing, build-up structures, set-piece craft, and player development, alongside reflections on how football connects people across continents.</p>
+          <ul style="margin:12px 0 0 16px">
+            <li><strong>Tactics, simplified</strong> without dumbing it down.</li>
+            <li><strong>Leagues I watch:</strong> MLS, NWSL, EPL, La Liga, Bundesliga, CAF competitions.</li>
+            <li><strong>Perspective:</strong> coached at the grassroots, lectured at the college level, traveled to matches on four continents.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED ANALYSIS -->
+    <section id="analysis">
+      <div class="wrap">
+        <h2>Featured Analysis</h2>
+        <div class="grid-3">
+          <article class="card post">
+            <span class="pill">Tactics</span>
+            <h3>Decoding the 3-2-5: Why It’s Everywhere</h3>
+            <p>From first-line overloads to rest-defense—how modern coaches use a 3-2-5 to control games.</p>
+            <div class="meta">8 min • Systems & Shapes</div>
+          </article>
+          <article class="card post">
+            <span class="pill">Scouting</span>
+            <h3>Press-Resistant #6: What to Look For</h3>
+            <p>Orientation, scanning, and shoulder shape—the tiny things that make a midfield anchor elite.</p>
+            <div class="meta">6 min • Player Roles</div>
+          </article>
+          <article class="card post">
+            <span class="pill">Set Pieces</span>
+            <h3>Corner Kicks as Free xG</h3>
+            <p>Simple routines amateur coaches can adapt tomorrow for better chances.</p>
+            <div class="meta">5 min • Coaching Notes</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- POSTS -->
+    <section id="posts">
+      <div class="wrap">
+        <h2>Latest Posts</h2>
+        <div class="grid-3">
+          <article class="card post">
+            <span class="pill">Leagues</span>
+            <h3>MLS vs. EPL: Week-at-a-Glance</h3>
+            <p>Storylines, must-see matches, and a quick viewer's guide.</p>
+            <div class="meta">4 min • Viewing Guide</div>
+          </article>
+          <article class="card post">
+            <span class="pill">Community</span>
+            <h3>Grassroots Coaching: Joy First</h3>
+            <p>Keep kids learning by keeping them smiling—session ideas inside.</p>
+            <div class="meta">3 min • Youth Football</div>
+          </article>
+          <article class="card post">
+            <span class="pill">Culture</span>
+            <h3>What Football Sounds Like</h3>
+            <p>From drums in Casablanca to chants in Kansas City—why sound matters.</p>
+            <div class="meta">7 min • Culture</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDIA -->
+    <section id="media">
+      <div class="wrap">
+        <h2>Media</h2>
+        <div class="grid-2">
+          <div class="card" style="padding:18px">
+            <h3 style="margin-top:0;color:var(--blue-850)">Video Corner</h3>
+            <p>Drop a YouTube link here by replacing the <code>src</code> below.</p>
+            <div style="aspect-ratio:16/9; background:#e6f0ff;border:1px solid #cfe0ff;border-radius:12px;overflow:hidden">
+              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Placeholder video" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="card" style="padding:18px">
+            <h3 style="margin-top:0;color:var(--blue-850)">Podcast & Audio</h3>
+            <p>Swap this <code>src</code> with your hosted MP3 file.</p>
+            <audio controls style="width:100%">
+              <source src="/media/sample.mp3" type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+            <p class="meta">Episode 01 • Why Football Hooks Us</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIO & TIMELINE -->
+    <section id="bio">
+      <div class="wrap">
+        <h2>Bio & Timeline</h2>
+        <div class="grid-2">
+          <div class="card" style="padding:22px">
+            <h3 style="margin-top:0;color:var(--blue-850)">Who is Theodore Blu?</h3>
+            <p style="margin:0 0 10px">I'm an Ivy League graduate, a world traveler, and a father. Before writing full-time about football, I served as a college professor—teaching critical thinking, communication, and the kind of pattern recognition that shows up on the pitch.</p>
+            <p style="margin:0">I believe the game is a classroom: tactics teach structure, culture teaches empathy, and competition teaches resilience.</p>
+          </div>
+          <div class="card" style="padding:22px">
+            <h3 style="margin-top:0;color:var(--blue-850)">Timeline</h3>
+            <div class="timeline">
+              <div class="t-item"><strong>Today</strong> — Writing, coaching locally, and traveling for matches.</div>
+              <div class="t-item"><strong>2010s</strong> — College professor; launched a community soccer literacy project.</div>
+              <div class="t-item"><strong>2000s</strong> — Global travel across 4 continents; matches in London, Accra, Madrid, and Seattle.</div>
+              <div class="t-item"><strong>Earlier</strong> — Ivy League degree; lifelong love affair with the ball.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="wrap">
+        <h2>Get in Touch</h2>
+        <div class="card" style="padding:22px">
+          <p style="margin-top:0">Want to share a match to watch, a story, or a question? Drop me a line:</p>
+          <form onsubmit="event.preventDefault(); alert('Thanks! This example form doesn\'t send anywhere yet.');" aria-label="Contact form">
+            <div style="display:grid;gap:12px;grid-template-columns:repeat(2,1fr)">
+              <label> Name
+                <input required placeholder="Your name" style="width:100%;padding:10px;border:1px solid var(--slate-200);border-radius:10px" />
+              </label>
+              <label> Email
+                <input type="email" required placeholder="you@example.com" style="width:100%;padding:10px;border:1px solid var(--slate-200);border-radius:10px" />
+              </label>
+            </div>
+            <label style="display:block;margin-top:12px"> Message
+              <textarea required rows="4" placeholder="Your message" style="width:100%;padding:10px;border:1px solid var(--slate-200);border-radius:10px"></textarea>
+            </label>
+            <button class="btn" style="margin-top:14px">Send</button>
+            <p style="font-size:12px;opacity:.75;margin-top:8px">(Demo only — connect to Formspree or your backend to receive messages.)</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBSCRIBE -->
+    <section id="subscribe">
+      <div class="wrap">
+        <h2>Subscribe for New Posts</h2>
+        <div class="card" style="padding:22px">
+          <form onsubmit="event.preventDefault(); alert('Thanks, you\'re on the list in this demo!');" aria-label="Subscribe form">
+            <div class="grid-2">
+              <label>Email
+                <input type="email" required placeholder="you@example.com" style="width:100%;padding:10px;border:1px solid var(--slate-200);border-radius:10px" />
+              </label>
+              <div style="display:flex;align-items:end"><button class="btn" style="width:100%">Subscribe</button></div>
+            </div>
+            <p class="meta">Privacy-friendly: I only send when there’s something worth reading.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot-grid">
+      <div>
+        <strong>About</strong>
+        <p class="meta">Written by Theodore Blu—father, traveler, Ivy League alum, and former professor—now documenting football’s ideas and stories.</p>
+      </div>
+      <div>
+        <strong>Elsewhere</strong>
+        <div class="social" style="margin-top:8px">
+          <a href="#" aria-label="Link to X/Twitter">🐦 X</a>
+          <a href="#" aria-label="Link to YouTube">▶️ YouTube</a>
+          <a href="#" aria-label="Link to RSS">📰 RSS</a>
+        </div>
+      </div>
+      <div>
+        <strong>Meta</strong>
+        <p class="meta">© <span id="y"></span> Theodore Blu. Built with a love for the beautiful game. Theme: <strong style="color:#0f3b66">Blue</strong>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
